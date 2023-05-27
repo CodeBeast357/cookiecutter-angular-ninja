@@ -1,0 +1,19 @@
+--- 
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ad-hoc-analytics-rabbitmq-management-ingress
+spec:
+  ingressClassName: nginx
+  type: ClusterIP
+  rules:
+  - host: rabbitmq-manager.localhost
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: rabbitmq
+            port:
+              number: 80

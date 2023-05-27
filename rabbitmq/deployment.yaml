@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq
+spec:
+  selector:
+    matchLabels:
+      app: rabbitmq
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: rabbitmq
+        app: rabbitmq
+    spec:
+      # volumes:
+      #   - name: rabbitmq-pv-storage
+      #     persistentVolumeClaim:
+      #       claimName: rabbitmq-pv-claim
+      containers:
+        - name: rabbitmq
+          image: rabbitmq:3-management
+          ports:
+          - containerPort: 5672
+          - containerPort: 15672
+          # volumeMounts:
+          #   - mountPath: /var/lib/rabbitmq/data
+          #     name: rabbitmq-pv-storage
+          env:
+          - name: RABBITMQ_DEFAULT_PASS
+            valueFrom:
+              secretKeyRef:
+                name: rabbitmq-secret-config
+                key: password
+          - name: RABBITMQ_DEFAULT_USER
+            value: admin
+          - name: RABBITMQ_DEFAULT_VHOST
+            value: generic_ui

@@ -1,0 +1,13 @@
+django-ninja
+ipdb
+black==22.3.0
+pytest
+psycopg2-binary
+snowflake-connector-python
+sqlalchemy
+celery
+
+# Dev requirements
+jupyterlab
+ipython
+django-extensions

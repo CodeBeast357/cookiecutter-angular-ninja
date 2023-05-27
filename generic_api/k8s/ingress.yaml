@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ad-hoc-analytics-api-ingress
+spec:
+  ingressClassName: nginx
+  type: ClusterIP
+  rules:
+  - host: ad-hoc.localhost
+    http:
+      paths:
+      - path: /api/
+        pathType: Prefix
+        backend:
+          service:
+            name: ad-hoc-analytics-api
+            port:
+              number: 80
+      - path: /admin/
+        pathType: Prefix
+        backend:
+          service:
+            name: ad-hoc-analytics-api
+            port:
+              number: 80

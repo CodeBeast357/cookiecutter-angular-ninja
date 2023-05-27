@@ -1,0 +1,14 @@
+# Show the existing HPA and watch it to see autoscaling happening in real time
+watch kubectl describe hpa --show-events=true
+
+# See pod utilization in real time
+watch kubectl top pod -A
+
+# Start minikube
+./start.sh
+minikube tunnel
+
+# Start tilt
+tilt up
+
+# Open ad-hoc.localhost and create some load!

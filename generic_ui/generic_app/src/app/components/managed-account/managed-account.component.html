@@ -1,0 +1,60 @@
+<mat-card>
+    <mat-card-title>{{ account.name }}</mat-card-title>
+    <mat-card-content>
+        <mat-list>
+            <mat-list-item>
+                <div class="table-cell key">account_url:</div>
+                <div class="table-cell value"><a href="{{ account.account_url}}">{{ account.account_url}}</a></div>
+            </mat-list-item>
+            <mat-list-item>
+                <div class="table-cell key">ID:</div>
+                <div class="table-cell value">{{ account.id }}</div>
+            </mat-list-item>
+            <mat-list-item>
+                <div class="table-cell key">Name:</div>
+                <div class="table-cell value">{{ account.name }}</div>
+            </mat-list-item>
+            <mat-list-item>
+                <div class="table-cell key">Role:</div>
+                <div class="table-cell value">{{ account.role }}</div>
+            </mat-list-item>
+            <mat-list-item>
+                <div class="table-cell key">Source Database:</div>
+                <div class="table-cell value">{{ account.source_company_database }}</div>
+            </mat-list-item>
+            <mat-list-item>
+                <div class="table-cell key">Company Key:</div>
+                <div class="table-cell value">{{ account.source_company_key }}</div>
+            </mat-list-item>
+            <mat-list-item>
+                <div class="table-cell key">Status Code:</div>
+                <div class="table-cell value">{{ account.status_code }}</div>
+            </mat-list-item>
+            <mat-list-item>
+                <div class="table-cell key">Username:</div>
+                <div class="table-cell value">{{ account.username }}</div>
+            </mat-list-item>
+            <mat-list-item>
+                <div class="table-cell key">Warehouse:</div>
+                <div class="table-cell value">{{ account.warehouse }}</div>
+            </mat-list-item>
+            <mat-list-item>
+                <div class="table-cell key">Warehouse Created:</div>
+                <div class="table-cell value">{{ account.warehouse_created }}</div>
+            </mat-list-item>
+            <mat-list-item>
+                <div class="table-cell key">Current Share:</div>
+                <div class="table-cell value">{{ account.current_share }}</div>
+            </mat-list-item>
+            <mat-list-item>
+                <div class="table-cell key">comment:</div>
+                <div class="table-cell value">{{ account.comment }}</div>
+            </mat-list-item>
+        </mat-list>
+
+        <button *ngIf="!account.warehouse_created && account.status_code == 200" mat-raised-button color="primary" (click)="createWarehouse(account.id)">Create Warehouse</button>
+        <button *ngIf="account.status_code == 200" mat-raised-button color="primary" (click)="createOrUpdateShare(account.id)">Create/Update Share Database</button>
+        <button *ngIf="account.status_code != 200" mat-raised-button color="primary" (click)="updateAccountAvailability(account.id)">Update Availability</button>
+
+    </mat-card-content>
+</mat-card>
