@@ -6,7 +6,7 @@ from typing import Optional
 
 class StatusSchema(Schema):
     uptime: int
-    mysql_connected: bool
+    database_connected: bool
 
     
 class DatabasesSchema(Schema):

@@ -123,11 +123,11 @@ def return_status(request):
     try:
         c = db_conn.cursor()
     except OperationalError:
-        mysql_connected = False
+        database_connected = False
     else:
-        mysql_connected = True
+        database_connected = True
 
-    return {'uptime': total_uptime, 'mysql_connected': mysql_connected}
+    return {'uptime': total_uptime, 'database_connected': database_connected}
 
 
 @api.get('/get-available-databases/', response=List[str])

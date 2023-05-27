@@ -4,7 +4,7 @@ load('ext://uibutton', 'cmd_button', 'location', 'text_input')
 ###################################
 #
 #  Ingress Controller
-load('./tilt/install_ingress_controller.tilt', 'install_ingress_controller')
+load('./tilt_utils/install_ingress_controller.tilt', 'install_ingress_controller')
 install_ingress_controller()
 
 
