@@ -4,7 +4,7 @@ This is a generic setup for is a website for building out a website with an API 
 
 Items in the to do list: 
 
-* Create migrations!
+* Create utils to pull migrations from containers so they don't need to be built all hacky.
 
 ## Getting Started
 
@@ -16,25 +16,39 @@ curl -fsSL https://raw.githubusercontent.com/tilt-dev/tilt/master/scripts/instal
 
 ### Git'er Done
 
+If you want to develop on the cookiecutter template, you can use:
+
+```
+cookiecutter -f --no-input .
+```
+
+And then in the newly created directory:
+
 ```
 tilt up
 ```
+
+![Tilt Up](img/tilt-up.png?raw=true)
+
+Any time you want to make an adjustment, you can rerun the cookiecutter command above to overwrite the files in place and tilt will automatically update
+the deployments as necessary - this is useful if you want to add more services, etc.
+
 ## Default locations
 
 ### Admin UI
-Once you've got things started up, you should be able to reach the admin UI at http://ad-hoc.localhost/admin/
+Once you've got things started up, you should be able to reach the admin UI at http://app.localhost/admin/
 
-![Admin UI](img/admin_ui.png?raw=true)
+![Admin UI](img/django-admin.png?raw=true)
 
 ### Angular UI
-Once you've got things started up, you should be able to reach the admin UI at http://ad-hoc.localhost/ui/
+Once you've got things started up, you should be able to reach the admin UI at http://app.localhost/ui/
 
-![Admin UI](img/angular_ui.png?raw=true)
+![Angular UI](img/angular-ui.png?raw=true)
 
 ### Django Ninja Swagger Docs
-Once you've got things started up, you should be able to reach the admin UI at http://ad-hoc.localhost/api/docs/
+Once you've got things started up, you should be able to reach the admin UI at http://app.localhost/api/docs/
 
-![Admin UI](img/api_docs.png?raw=true)
+![Swagger UI](img/swagger-docs.png?raw=true)
 
 
 TO run a jupyter notebook: 
