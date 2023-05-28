@@ -20,15 +20,15 @@ local_resource('postgres-tables', cmd='kubectl exec -it `kubectl get pods | grep
 # kubectl exec -it `kubectl get pods | grep ad-hoc | grep api | grep Running` -- bash
 # kubectl exec -it `kubectl get pods | grep ad-hoc | grep ui | grep Running` -- bash
 
-# docker_build('ad-hoc-analytics-api-image', 'generic_api/', 
-#     live_update=[
-#         sync('./generic_api/generic/', '/usr/src/generic/generic/'),
-#         run(
-#             'pip install -r /usr/src/requirements.txt',
-#             trigger=['./generic_api/requirements.txt']
-#         )
-#     ]
-# )
+docker_build('{{cookiecutter.api_slug}}-api-image', 'api/', 
+    live_update=[
+        sync('./api/{{cookiecutter.api_slug}}/', '/usr/src/{{cookiecutter.api_slug}}/{{cookiecutter.api_slug}}/'),
+        run(
+            'pip install -r /usr/src/requirements.txt',
+            trigger=['./api/requirements.txt']
+        )
+    ]
+)
 docker_build('{{cookiecutter.angular_slug}}-ui-image', 
     context='ui/{{cookiecutter.angular_slug}}',
     dockerfile='ui/{{cookiecutter.angular_slug}}/Dockerfile-dev',
@@ -41,19 +41,18 @@ docker_build('{{cookiecutter.angular_slug}}-ui-image',
 )
 docker_prune_settings( disable = False , max_age_mins = 360 , num_builds = 0 , interval_hrs = 1 , keep_recent = 2 ) 
 
-# k8s_yaml([
-#     'generic_api/k8s/deployment.yaml',
-#     # 'generic_api/k8s/hpa.yaml',
-#     'generic_api/k8s/service.yaml',
-#     'generic_api/k8s/ingress.yaml',
-# ])
+k8s_yaml([
+    'api/k8s/deployment.yaml',
+    # 'api/k8s/hpa.yaml',
+    'api//k8s/service.yaml',
+    'api//k8s/ingress.yaml',
+])
 k8s_yaml([
     'ui/k8s/deployment.yaml',
     # 'ui/k8s/hpa.yaml',
     'ui/k8s/service.yaml',
     'ui/k8s/ingress.yaml',
 ])
-k8s_yaml('storage-class.yaml')
 k8s_yaml([
     'postgres-server/secrets.yaml',
     'postgres-server/deployment.yaml',
@@ -72,17 +71,16 @@ k8s_yaml([
 ])
 
 
-#k8s_resource('generic-ui', port_forwards=8080, labels=['services'])
 k8s_resource('{{cookiecutter.angular_slug}}-ui', labels=['UI'])
-# k8s_resource('ad-hoc-analytics-api', labels=['API'])
-# k8s_resource('ad-hoc-analytics-worker', labels=['API'])
+k8s_resource('{{cookiecutter.api_slug}}-api', labels=['API'])
+k8s_resource('{{cookiecutter.api_slug}}-worker', labels=['API'])
 k8s_resource('postgres', labels=['postgres'])
 k8s_resource('rabbitmq', labels=['rabbitmq'])
 
-# cmd_button(
-#     name='nav-black',
-#     argv=['black', 'generic_api/generic_api/'],
-#     text='Python Black',
-#     location=location.NAV,
-#     icon_name='install_desktop'
-# )
+cmd_button(
+    name='nav-black',
+    argv=['black', 'api/{{cookiecutter.python_slug}}/'],
+    text='Python Black',
+    location=location.NAV,
+    icon_name='install_desktop'
+)

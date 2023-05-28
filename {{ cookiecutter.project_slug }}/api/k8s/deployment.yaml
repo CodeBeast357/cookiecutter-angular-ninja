@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{cookiecutter.api_slug}}-api
+spec:
+  selector:
+    matchLabels:
+      app: {{cookiecutter.api_slug}}-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: {{cookiecutter.api_slug}}-api
+        app: {{cookiecutter.api_slug}}-api
+    spec:
+      containers:
+        - name: {{cookiecutter.api_slug}}-api
+          image: {{cookiecutter.api_slug}}-api-image
+          ports:
+            - name: api-port
+              containerPort: 8000
+      initContainers:
+        - name: generic-api-migrater
+          image: {{cookiecutter.api_slug}}-api-image
+          command: ["python", "/usr/src/{{ cookiecutter.python_slug }}/manage.py", "migrate"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{cookiecutter.api_slug}}-worker
+spec:
+  selector:
+    matchLabels:
+      app: {{cookiecutter.api_slug}}-worker
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: {{cookiecutter.api_slug}}-worker
+        app: {{cookiecutter.api_slug}}-worker
+    spec:
+      containers:
+        - name: {{cookiecutter.api_slug}}-api
+          image: {{cookiecutter.api_slug}}-api-image
+          ports:
+            - name: api-port
+              containerPort: 8000
+          command: ["python", "-m", "celery", "-A", "{{ cookiecutter.python_slug }}", "worker"]
+          
