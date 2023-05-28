@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'cookiecutteruireplace'`, () => {
+  it(`should have as title '{{cookiecutter.angular_slug}}'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('cookiecutteruireplace');
+    expect(app.title).toEqual('{{cookiecutter.angular_slug}}');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('cookiecutteruireplace app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('{{cookiecutter.angular_slug}} app is running!');
   });
 });

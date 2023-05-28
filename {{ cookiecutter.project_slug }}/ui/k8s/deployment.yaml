@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{cookiecutter.angular_slug}}-ui
+spec:
+  selector:
+    matchLabels:
+      app: {{cookiecutter.angular_slug}}-ui
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: {{cookiecutter.angular_slug}}-ui
+        app: {{cookiecutter.angular_slug}}-ui
+    spec:
+      containers:
+      - name: {{cookiecutter.angular_slug}}-ui
+        image: {{cookiecutter.angular_slug}}-ui-image
+        ports:
+          - containerPort: 4200
+            livenessProbe:
+              httpGet:
+                path: /
+                port: 4200
+              initialDelaySeconds: 10
+              periodSeconds: 30
+              timeoutSeconds: 1
+              failureThreshold: 3
+              readinessProbe:
+                httpGet:
+                  path: /
+                  port: 4200
+                initialDelaySeconds: 10
+                periodSeconds: 30
+                timeoutSeconds: 1
+                failureThreshold: 3
+        resources:
+          requests:
+            cpu: "250m"
