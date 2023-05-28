@@ -1,0 +1,18 @@
+def install_ingress_controller(): 
+    # these logs shoudl be able to come out of k9s? 
+    print(" ~ Installing Ingress Controller")
+    local(
+      command="kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.7.1/deploy/static/provider/cloud/deploy.yaml",
+    )
+    print(" ~ Ingress Controller Installed")
+
+    local_resource('ingress-logs', cmd="kubectl logs --follow -n ingress-nginx `kubectl get pods -n ingress-nginx | grep controller | awk '{print $1}'`", labels=['Ingress'], allow_parallel=True, auto_init=False)
+
+    # these logs shoudl be able to come out of k9s? 
+    local_resource(
+        'nginx-ingress config', 
+        cmd="kubectl exec -it `kubectl get pods -n ingress-nginx | grep controller | awk '{print $1}'` -n ingress-nginx -- cat /etc/nginx/nginx.conf", 
+        labels=['Ingress'], 
+        allow_parallel=True, 
+        auto_init=False
+    )
