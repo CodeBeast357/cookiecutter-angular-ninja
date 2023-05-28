@@ -11,6 +11,8 @@ import os
 
 from django.core.wsgi import get_wsgi_application  # type: ignore
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{ cookiecutter.python_slug }}.settings")
+os.environ.setdefault(
+    "DJANGO_SETTINGS_MODULE", "{{ cookiecutter.python_slug }}.settings"
+)
 
 application = get_wsgi_application()

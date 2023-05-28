@@ -19,10 +19,44 @@ spec:
           ports:
             - name: api-port
               containerPort: 8000
+          env:
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret-config
+                key: password
+          - name: RABBITMQ_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: rabbitmq-secret-config
+                key: password
+          - name: POSTGRES_USERNAME
+            value: postgres
+          - name: RABBITMQ_USERNAME
+            value: admin
+          - name: POSTGRES_DB
+            value: {{ cookiecutter.python_slug }}_database
       initContainers:
         - name: generic-api-migrater
           image: {{cookiecutter.api_slug}}-api-image
           command: ["python", "/usr/src/{{ cookiecutter.python_slug }}/manage.py", "migrate"]
+          env:
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret-config
+                key: password
+          - name: RABBITMQ_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: rabbitmq-secret-config
+                key: password
+          - name: POSTGRES_USERNAME
+            value: postgres
+          - name: RABBITMQ_USERNAME
+            value: admin
+          - name: POSTGRES_DB
+            value: {{ cookiecutter.python_slug }}_database
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -45,5 +79,22 @@ spec:
           ports:
             - name: api-port
               containerPort: 8000
+          env:
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret-config
+                key: password
+          - name: RABBITMQ_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: rabbitmq-secret-config
+                key: password
+          - name: POSTGRES_USERNAME
+            value: postgres
+          - name: RABBITMQ_USERNAME
+            value: admin
+          - name: POSTGRES_DB
+            value: {{ cookiecutter.python_slug }}_database
           command: ["python", "-m", "celery", "-A", "{{ cookiecutter.python_slug }}", "worker"]
           

@@ -1,4 +1,4 @@
-django-ninja
+django-ninja==0.21.0
 ipdb
 black==22.3.0
 pytest

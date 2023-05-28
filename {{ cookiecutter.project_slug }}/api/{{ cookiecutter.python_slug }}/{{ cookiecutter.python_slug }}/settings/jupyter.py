@@ -11,7 +11,7 @@ NOTEBOOK_DEFAULT_URL = '/lab'  # Using JupyterLab
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "ad_hoc_analytics_database",
+        "NAME": "{{ cookiecutter.python_slug }}_database",
         "USER": "postgres", # TODO: Pull this from configmap and os.environ
         "PASSWORD": "1f2d1e2e67df",
         "HOST": "localhost",

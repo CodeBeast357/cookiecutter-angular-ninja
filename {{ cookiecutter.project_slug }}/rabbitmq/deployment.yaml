@@ -35,4 +35,4 @@ spec:
           - name: RABBITMQ_DEFAULT_USER
             value: admin
           - name: RABBITMQ_DEFAULT_VHOST
-            value: generic_ui
+            value: {{ cookiecutter.python_slug }}

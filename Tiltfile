@@ -11,7 +11,7 @@ install_ingress_controller()
 
 
 local_resource('postgres-databases', cmd='kubectl exec -it `kubectl get pods | grep postgres | grep Running` -- psql -U postgres -c "\\l"', labels=['postgres'], allow_parallel=True, auto_init=False)
-local_resource('postgres-tables', cmd='kubectl exec -it `kubectl get pods | grep postgres | grep Running` -- psql -U postgres -c "\\dt" ad_hoc_analytics_database', labels=['postgres'], allow_parallel=True, auto_init=False)
+local_resource('postgres-tables', cmd='kubectl exec -it `kubectl get pods | grep postgres | grep Running` -- psql -U postgres -c "\\dt" {{ cookiecutter.python_slug }}_database', labels=['postgres'], allow_parallel=True, auto_init=False)
 
 # AD_HOC_ENVIRONMENT=jupyter ./manage.py shell_plus --lab
 

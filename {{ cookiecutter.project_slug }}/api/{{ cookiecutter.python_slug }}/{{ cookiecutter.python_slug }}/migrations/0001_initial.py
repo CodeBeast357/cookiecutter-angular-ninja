@@ -5,14 +5,13 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name="ReaderAccount",
+            name="BlogPost",
             fields=[
                 (
                     "id",
@@ -23,37 +22,8 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("source_company_key", models.CharField(max_length=100)),
-                ("source_company_database", models.CharField(max_length=100)),
-                ("name", models.CharField(max_length=100)),
-                ("username", models.CharField(max_length=100)),
-                ("password", models.CharField(max_length=100)),
-                ("role", models.CharField(max_length=100)),
-                ("warehouse", models.CharField(max_length=100)),
-                ("account_url", models.CharField(max_length=100)),
-                ("comment", models.CharField(max_length=524288)),
-                ("status_code", models.IntegerField(default=403)),
-                ("warehouse_created", models.BooleanField(default=False)),
-                ("current_share", models.CharField(max_length=100, null=True)),
-            ],
-        ),
-        migrations.CreateModel(
-            name="SourceAccount",
-            fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                ("username", models.CharField(max_length=100)),
-                ("password", models.CharField(max_length=100)),
-                ("role", models.CharField(max_length=100)),
-                ("warehouse", models.CharField(max_length=100)),
-                ("account_url", models.CharField(max_length=100)),
+                ("title", models.CharField(max_length=100)),
+                ("body", models.CharField(max_length=524288)),
             ],
         ),
     ]
