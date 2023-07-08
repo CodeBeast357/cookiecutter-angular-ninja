@@ -1,0 +1,13 @@
+<button mat-raised-button color="primary" (click)="createBlogPost()">Create new Blog Post</button>
+
+
+
+<div *ngFor="let blogPost of blogPosts">
+    <mat-card>
+        {% raw -%}
+        <mat-card-title>{{ blogPost.title }}</mat-card-title>
+        <mat-card-content>{{ blogPost.body }}</mat-card-content>
+        {%- endraw %}
+    </mat-card>
+    <mat-divider></mat-divider>
+</div>

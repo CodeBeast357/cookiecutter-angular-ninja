@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
@@ -21,17 +20,24 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSelectModule} from '@angular/material/select';
-
-import { MenuComponent } from './components/menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+
+
+import { AppComponent } from './app.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { BlogPostComponent } from './components/blog-post/blog-post.component';
+import { BlogPostListComponent } from './components/blog-post-list/blog-post-list.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
+    BlogPostComponent,
+    BlogPostListComponent,
   ],
   imports: [
     BrowserModule,
